@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView numtwo;
     private EditText input;
     private TextView signView;
+
+
 
     public int correct = 0;
     public int count = 10;
@@ -47,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void generateTen(View view){
-
+        Button button = findViewById(R.id.generate);
         count = 10;
         correct = 0;
+
 
         numone = findViewById(R.id.input1);
         numtwo = findViewById(R.id.input2);
@@ -62,13 +66,14 @@ public class MainActivity extends AppCompatActivity {
         numtwo.setText(String.valueOf(ntwo));
 
         generateSign();
-
+        button.setEnabled(false);
     }
 
 
 
 
     public void assignVal(View view){
+        Button button = findViewById(R.id.generate);
         if (count > 0) {
 
             String one = numone.getText().toString();
@@ -105,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             String print = correct + " out of 10";
             Toast.makeText(MainActivity.this, print,
                     Toast.LENGTH_LONG).show();
+            button.setEnabled(true);
 
         }
 

@@ -26,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         if (user.getText().toString().equals(username) && pass.getText().toString().equals(password)) {
             startActivity(intent);
+            String print = "Welcome " + username;
+            Toast.makeText(LoginActivity.this, print,
+                    Toast.LENGTH_LONG).show();
         } else{
             String print = "Incorrect Username or Password!";
             Toast.makeText(LoginActivity.this, print,
