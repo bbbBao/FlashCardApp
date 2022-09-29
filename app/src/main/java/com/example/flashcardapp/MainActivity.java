@@ -18,18 +18,67 @@ public class MainActivity extends AppCompatActivity {
     private EditText input;
     private TextView signView;
 
+    private static final String KEY_INPUT1 = "INPUT1";
+    private static final String KEY_INPUT2 = "INPUT2";
+    private static final String KEY_SIGN = "INPUT3";
+    private static final String KEY_CORRECT = "CORRECT";
+    private static final String KEY_COUNT = "COUNT";
+    private static final String KEY_STATE = "STATE";
+    private static final String KEY_ANSWER = "ANSWER";
 
 
     public int correct = 0;
     public int count = 10;
+    public boolean generateState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
 
+        numone = findViewById(R.id.input1);
+        numtwo = findViewById(R.id.input2);
+        signView = findViewById(R.id.signView);
+        input = findViewById(R.id.answer);
+        Button button = findViewById(R.id.generate);
+
+
+        if (savedInstanceState != null) {
+            CharSequence savedInput1 = savedInstanceState.getCharSequence(KEY_INPUT1);
+            numone.setText(savedInput1);
+
+            CharSequence savedInput2 = savedInstanceState.getCharSequence(KEY_INPUT2);
+            numtwo.setText(savedInput2);
+
+            CharSequence savedSign = savedInstanceState.getCharSequence(KEY_SIGN);
+            signView.setText(savedSign);
+
+            int savedCorrect = savedInstanceState.getInt(KEY_CORRECT);
+            correct = savedCorrect;
+
+            int savedCount = savedInstanceState.getInt(KEY_COUNT);
+            count = savedCount;
+
+            generateState = savedInstanceState.getBoolean(KEY_STATE);
+            button.setEnabled(generateState);
+
+            CharSequence savedInput = savedInstanceState.getCharSequence(KEY_ANSWER);
+            input.setText(savedInput);
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putCharSequence(KEY_INPUT1, numone.getText());
+        savedInstanceState.putCharSequence(KEY_INPUT2, numtwo.getText());
+        savedInstanceState.putCharSequence(KEY_SIGN, signView.getText());
+        savedInstanceState.putInt(KEY_CORRECT, correct);
+        savedInstanceState.putInt(KEY_COUNT, count);
+        savedInstanceState.putBoolean(KEY_STATE, generateState);
+        savedInstanceState.putCharSequence(KEY_ANSWER, input.getText());
     }
 
     public int randomInt(int min, int max){
@@ -67,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         generateSign();
         button.setEnabled(false);
+        generateState = false;
     }
 
 
@@ -111,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, print,
                     Toast.LENGTH_LONG).show();
             button.setEnabled(true);
+            generateState = true;
 
         }
 
